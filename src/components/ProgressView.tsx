@@ -1,8 +1,8 @@
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, Trophy, Star, Target, Clock, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProgressViewProps {
   onBack: () => void;
@@ -10,6 +10,8 @@ interface ProgressViewProps {
 }
 
 const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
+  const { t } = useLanguage();
+  
   const achievements = [
     { id: 1, title: "First Steps", description: "Complete your first lesson", icon: "🎹", earned: true },
     { id: 2, title: "Note Master", description: "Learn all basic notes", icon: "🎵", earned: true },
@@ -49,13 +51,13 @@ const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
             className="glass-effect border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-slate-900"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Academy
+            {t('progress.back')}
           </Button>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
-            Your Progress
+            {t('progress.title')}
           </h1>
           <div className="text-right">
-            <div className="text-sm text-gray-400">Level</div>
+            <div className="text-sm text-gray-400">{t('home.level')}</div>
             <div className="text-lg font-bold text-white capitalize">{userProgress.currentLevel}</div>
           </div>
         </div>
@@ -65,28 +67,28 @@ const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
           <Card className="glass-effect border-neon-blue/30 p-4 text-center">
             <Star className="w-8 h-8 text-neon-yellow mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">{userProgress.totalStars}</div>
-            <div className="text-sm text-gray-400">Stars Earned</div>
+            <div className="text-sm text-gray-400">{t('progress.stars_earned')}</div>
           </Card>
           <Card className="glass-effect border-neon-green/30 p-4 text-center">
             <Target className="w-8 h-8 text-neon-green mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">{userProgress.completedLessons}</div>
-            <div className="text-sm text-gray-400">Lessons Done</div>
+            <div className="text-sm text-gray-400">{t('progress.lessons_done')}</div>
           </Card>
           <Card className="glass-effect border-neon-purple/30 p-4 text-center">
             <Clock className="w-8 h-8 text-neon-purple mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">{userProgress.streakDays}</div>
-            <div className="text-sm text-gray-400">Day Streak</div>
+            <div className="text-sm text-gray-400">{t('progress.day_streak')}</div>
           </Card>
           <Card className="glass-effect border-neon-pink/30 p-4 text-center">
             <TrendingUp className="w-8 h-8 text-neon-pink mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">{Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%</div>
-            <div className="text-sm text-gray-400">Progress</div>
+            <div className="text-sm text-gray-400">{t('progress.progress_percent')}</div>
           </Card>
         </div>
 
         {/* Weekly Practice */}
         <Card className="glass-effect border-white/20 p-6 mb-6">
-          <h2 className="text-2xl font-bold text-white mb-4">This Week's Practice</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{t('progress.this_week')}</h2>
           <div className="grid grid-cols-7 gap-2">
             {weeklyProgress.map((day, index) => (
               <div key={index} className="text-center">
@@ -112,7 +114,7 @@ const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
 
         {/* Skill Progress */}
         <Card className="glass-effect border-white/20 p-6 mb-6">
-          <h2 className="text-2xl font-bold text-white mb-6">Skill Development</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t('progress.skill_development')}</h2>
           <div className="space-y-4">
             {skillProgress.map((skill, index) => (
               <div key={index}>
@@ -129,7 +131,7 @@ const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
 
         {/* Achievements */}
         <Card className="glass-effect border-white/20 p-6">
-          <h2 className="text-2xl font-bold text-white mb-6">Achievements</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t('progress.achievements')}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {achievements.map((achievement) => (
               <div 
@@ -162,9 +164,9 @@ const ProgressView = ({ onBack, userProgress }: ProgressViewProps) => {
         {/* Motivational Message */}
         <Card className="glass-effect border-white/20 p-6 mt-6 text-center">
           <Trophy className="w-12 h-12 text-neon-yellow mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-white mb-2">Keep Going!</h3>
+          <h3 className="text-xl font-bold text-white mb-2">{t('progress.keep_going')}</h3>
           <p className="text-gray-300 mb-4">
-            You're doing great! {userProgress.completedLessons > 0 ? 
+            {t('progress.doing_great')} {userProgress.completedLessons > 0 ? 
               `You've completed ${userProgress.completedLessons} lessons and earned ${userProgress.totalStars} stars.` :
               "Start your first lesson to begin your piano journey!"
             }

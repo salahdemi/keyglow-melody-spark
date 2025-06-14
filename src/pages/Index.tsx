@@ -1,15 +1,19 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useLanguage, Language } from "@/contexts/LanguageContext";
+import LanguageSelection from "@/components/LanguageSelection";
 import LessonsView from "@/components/LessonsView";
 import PracticeMode from "@/components/PracticeMode";
 import ProgressView from "@/components/ProgressView";
-import { GraduationCap, Music, Award, ArrowLeft } from "lucide-react";
+import { GraduationCap, Music, Award, Settings } from "lucide-react";
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'lessons' | 'practice' | 'progress'>('home');
+  const { language, setLanguage, t } = useLanguage();
+  const [showLanguageSelection, setShowLanguageSelection] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'lessons' | 'practice' | 'progress' | 'settings'>('home');
   const [userProgress, setUserProgress] = useState({
     currentLevel: 'beginner',
     completedLessons: 3,
@@ -17,6 +21,27 @@ const Index = () => {
     streakDays: 5,
     totalStars: 12
   });
+
+  useEffect(() => {
+    // Check if user has selected a language before
+    const hasSelectedLanguage = localStorage.getItem('selectedLanguage');
+    if (!hasSelectedLanguage) {
+      setShowLanguageSelection(true);
+    }
+  }, []);
+
+  const handleLanguageSelect = (selectedLanguage: Language) => {
+    setLanguage(selectedLanguage);
+    setShowLanguageSelection(false);
+  };
+
+  const handleChangeLanguage = () => {
+    setShowLanguageSelection(true);
+  };
+
+  if (showLanguageSelection) {
+    return <LanguageSelection onLanguageSelect={handleLanguageSelect} />;
+  }
 
   if (currentView === 'lessons') {
     return <LessonsView onBack={() => setCurrentView('home')} userProgress={userProgress} setUserProgress={setUserProgress} />;
@@ -30,6 +55,43 @@ const Index = () => {
     return <ProgressView onBack={() => setCurrentView('home')} userProgress={userProgress} />;
   }
 
+  if (currentView === 'settings') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <Button 
+              onClick={() => setCurrentView('home')}
+              variant="outline"
+              className="glass-effect border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-slate-900"
+            >
+              ← {t('progress.back')}
+            </Button>
+            <h1 className="text-3xl font-bold text-white">Settings</h1>
+            <div></div>
+          </div>
+
+          <Card className="glass-effect border-white/20 p-6">
+            <h2 className="text-2xl font-bold text-white mb-6">Language Settings</h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-white">Current Language</span>
+                <span className="text-neon-blue capitalize">{language === 'en' ? 'English' : language === 'ar' ? 'العربية' : language === 'fr' ? 'Français' : 'Español'}</span>
+              </div>
+              <Button 
+                onClick={handleChangeLanguage}
+                className="w-full glass-effect border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-slate-900"
+                variant="outline"
+              >
+                {t('language.change')}
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
       <div className="max-w-4xl mx-auto">
@@ -38,11 +100,23 @@ const Index = () => {
           <div className="mb-6 animate-glow-pulse">
             <GraduationCap className="w-20 h-20 mx-auto text-neon-blue mb-4" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent mb-2">
-              Piano Academy
+              {t('home.title')}
             </h1>
             <p className="text-lg text-gray-300">
-              Learn piano step by step • From beginner to expert
+              {t('home.subtitle')}
             </p>
+          </div>
+          
+          {/* Settings Button */}
+          <div className="absolute top-4 right-4">
+            <Button
+              onClick={() => setCurrentView('settings')}
+              variant="outline"
+              size="icon"
+              className="glass-effect border-white/20 text-white hover:bg-white/10"
+            >
+              <Settings className="w-4 h-4" />
+            </Button>
           </div>
         </div>
 
@@ -50,17 +124,17 @@ const Index = () => {
         <Card className="glass-effect border-neon-blue/30 p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xl font-bold text-white">Your Progress</h3>
-              <p className="text-gray-400">Level: {userProgress.currentLevel.charAt(0).toUpperCase() + userProgress.currentLevel.slice(1)}</p>
+              <h3 className="text-xl font-bold text-white">{t('home.progress')}</h3>
+              <p className="text-gray-400">{t('home.level')}: {userProgress.currentLevel.charAt(0).toUpperCase() + userProgress.currentLevel.slice(1)}</p>
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-neon-yellow">⭐ {userProgress.totalStars}</div>
-              <div className="text-sm text-gray-400">{userProgress.streakDays} day streak 🔥</div>
+              <div className="text-sm text-gray-400">{userProgress.streakDays} {t('home.streak')} 🔥</div>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-300">Lessons Completed</span>
+              <span className="text-gray-300">{t('lessons.title')}</span>
               <span className="text-neon-blue">{userProgress.completedLessons}/{userProgress.totalLessons}</span>
             </div>
             <Progress 
@@ -78,13 +152,13 @@ const Index = () => {
             onClick={() => setCurrentView('lessons')}
           >
             <GraduationCap className="w-16 h-16 text-neon-blue mx-auto mb-4 group-hover:scale-110 transition-transform" />
-            <h2 className="text-2xl font-bold text-white mb-2 text-center">Learn</h2>
+            <h2 className="text-2xl font-bold text-white mb-2 text-center">{t('home.learn')}</h2>
             <p className="text-gray-400 text-center mb-4">
-              Step-by-step lessons from basics to advanced
+              {t('home.lessons_subtitle')}
             </p>
             <div className="text-center">
-              <div className="text-sm text-neon-blue font-medium">Next: Lesson {userProgress.completedLessons + 1}</div>
-              <div className="text-xs text-gray-500">Basic Chords</div>
+              <div className="text-sm text-neon-blue font-medium">{t('home.next_lesson')} {userProgress.completedLessons + 1}</div>
+              <div className="text-xs text-gray-500">{t('home.basic_chords')}</div>
             </div>
           </Card>
 
@@ -94,13 +168,13 @@ const Index = () => {
             onClick={() => setCurrentView('practice')}
           >
             <Music className="w-16 h-16 text-neon-purple mx-auto mb-4 group-hover:scale-110 transition-transform" />
-            <h2 className="text-2xl font-bold text-white mb-2 text-center">Practice</h2>
+            <h2 className="text-2xl font-bold text-white mb-2 text-center">{t('home.practice')}</h2>
             <p className="text-gray-400 text-center mb-4">
-              Free play with your virtual piano keyboard
+              {t('home.practice_subtitle')}
             </p>
             <div className="text-center">
-              <div className="text-sm text-neon-purple font-medium">Piano Keyboard</div>
-              <div className="text-xs text-gray-500">With feedback & guidance</div>
+              <div className="text-sm text-neon-purple font-medium">{t('home.piano_keyboard')}</div>
+              <div className="text-xs text-gray-500">{t('home.feedback_guidance')}</div>
             </div>
           </Card>
 
@@ -110,13 +184,13 @@ const Index = () => {
             onClick={() => setCurrentView('progress')}
           >
             <Award className="w-16 h-16 text-neon-pink mx-auto mb-4 group-hover:scale-110 transition-transform" />
-            <h2 className="text-2xl font-bold text-white mb-2 text-center">Progress</h2>
+            <h2 className="text-2xl font-bold text-white mb-2 text-center">{t('home.progress_section')}</h2>
             <p className="text-gray-400 text-center mb-4">
-              Track your achievements and growth
+              {t('home.progress_subtitle')}
             </p>
             <div className="text-center">
-              <div className="text-sm text-neon-pink font-medium">Badges & Stats</div>
-              <div className="text-xs text-gray-500">See how you're improving</div>
+              <div className="text-sm text-neon-pink font-medium">{t('home.badges_stats')}</div>
+              <div className="text-xs text-gray-500">{t('home.improving')}</div>
             </div>
           </Card>
         </div>
@@ -125,31 +199,31 @@ const Index = () => {
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card className="glass-effect border-white/10 p-4 text-center">
             <div className="text-2xl font-bold text-neon-blue">{userProgress.completedLessons}</div>
-            <div className="text-xs text-gray-400">Lessons Done</div>
+            <div className="text-xs text-gray-400">{t('home.lessons_done')}</div>
           </Card>
           <Card className="glass-effect border-white/10 p-4 text-center">
             <div className="text-2xl font-bold text-neon-green">{userProgress.streakDays}</div>
-            <div className="text-xs text-gray-400">Day Streak</div>
+            <div className="text-xs text-gray-400">{t('home.day_streak')}</div>
           </Card>
           <Card className="glass-effect border-white/10 p-4 text-center">
             <div className="text-2xl font-bold text-neon-yellow">{userProgress.totalStars}</div>
-            <div className="text-xs text-gray-400">Stars Earned</div>
+            <div className="text-xs text-gray-400">{t('home.stars_earned')}</div>
           </Card>
           <Card className="glass-effect border-white/10 p-4 text-center">
             <div className="text-2xl font-bold text-neon-purple">
               {Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%
             </div>
-            <div className="text-xs text-gray-400">Complete</div>
+            <div className="text-xs text-gray-400">{t('home.complete')}</div>
           </Card>
         </div>
 
         {/* Motivational Footer */}
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm mb-2">
-            🎹 "Every expert was once a beginner" 🎹
+            🎹 "{t('home.quote')}" 🎹
           </p>
           <p className="text-xs text-gray-500">
-            Practice 10 minutes daily to maintain your streak!
+            {t('home.practice_tip')}
           </p>
         </div>
       </div>

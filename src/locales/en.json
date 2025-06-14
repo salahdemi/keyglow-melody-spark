@@ -1,0 +1,65 @@
+
+{
+  "language": {
+    "select": "Select Your Language",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "spanish": "Español",
+    "change": "Change Language"
+  },
+  "home": {
+    "title": "Piano Academy",
+    "subtitle": "Learn piano step by step • From beginner to expert",
+    "progress": "Your Progress",
+    "level": "Level",
+    "streak": "day streak",
+    "learn": "Learn",
+    "practice": "Practice",
+    "progress_section": "Progress",
+    "lessons_subtitle": "Step-by-step lessons from basics to advanced",
+    "practice_subtitle": "Free play with your virtual piano keyboard",
+    "progress_subtitle": "Track your achievements and growth",
+    "next_lesson": "Next: Lesson",
+    "basic_chords": "Basic Chords",
+    "piano_keyboard": "Piano Keyboard",
+    "feedback_guidance": "With feedback & guidance",
+    "badges_stats": "Badges & Stats",
+    "improving": "See how you're improving",
+    "lessons_done": "Lessons Done",
+    "day_streak": "Day Streak",
+    "stars_earned": "Stars Earned",
+    "complete": "Complete",
+    "quote": "Every expert was once a beginner",
+    "practice_tip": "Practice 10 minutes daily to maintain your streak!"
+  },
+  "lessons": {
+    "title": "Piano Lessons",
+    "back": "Back to Academy",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "start_lesson": "Start Lesson",
+    "lesson_complete": "Lesson Complete!"
+  },
+  "practice": {
+    "title": "Practice Mode",
+    "back": "Back to Academy",
+    "free_play": "Free Play",
+    "guided_practice": "Guided Practice",
+    "feedback_mode": "Feedback Mode"
+  },
+  "progress": {
+    "title": "Your Progress",
+    "back": "Back to Academy",
+    "stars_earned": "Stars Earned",
+    "lessons_done": "Lessons Done",
+    "day_streak": "Day Streak",
+    "progress_percent": "Progress",
+    "this_week": "This Week's Practice",
+    "skill_development": "Skill Development",
+    "achievements": "Achievements",
+    "keep_going": "Keep Going!",
+    "doing_great": "You're doing great!"
+  }
+}

@@ -1,0 +1,65 @@
+
+{
+  "language": {
+    "select": "Selecciona tu idioma",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "spanish": "Español",
+    "change": "Cambiar idioma"
+  },
+  "home": {
+    "title": "Academia de Piano",
+    "subtitle": "Aprende piano paso a paso • De principiante a experto",
+    "progress": "Tu progreso",
+    "level": "Nivel",
+    "streak": "días seguidos",
+    "learn": "Aprender",
+    "practice": "Practicar",
+    "progress_section": "Progreso",
+    "lessons_subtitle": "Lecciones paso a paso desde lo básico hasta avanzado",
+    "practice_subtitle": "Juego libre con tu teclado de piano virtual",
+    "progress_subtitle": "Sigue tus logros y crecimiento",
+    "next_lesson": "Siguiente: Lección",
+    "basic_chords": "Acordes básicos",
+    "piano_keyboard": "Teclado de piano",
+    "feedback_guidance": "Con retroalimentación y guía",
+    "badges_stats": "Insignias y estadísticas",
+    "improving": "Ve cómo estás mejorando",
+    "lessons_done": "Lecciones completadas",
+    "day_streak": "Días seguidos",
+    "stars_earned": "Estrellas ganadas",
+    "complete": "Completo",
+    "quote": "Todo experto fue alguna vez un principiante",
+    "practice_tip": "¡Practica 10 minutos al día para mantener tu racha!"
+  },
+  "lessons": {
+    "title": "Lecciones de Piano",
+    "back": "Volver a la Academia",
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "advanced": "Avanzado",
+    "start_lesson": "Comenzar lección",
+    "lesson_complete": "¡Lección completada!"
+  },
+  "practice": {
+    "title": "Modo Práctica",
+    "back": "Volver a la Academia",
+    "free_play": "Juego libre",
+    "guided_practice": "Práctica guiada",
+    "feedback_mode": "Modo retroalimentación"
+  },
+  "progress": {
+    "title": "Tu progreso",
+    "back": "Volver a la Academia",
+    "stars_earned": "Estrellas ganadas",
+    "lessons_done": "Lecciones completadas",
+    "day_streak": "Días seguidos",
+    "progress_percent": "Progreso",
+    "this_week": "Práctica de esta semana",
+    "skill_development": "Desarrollo de habilidades",
+    "achievements": "Logros",
+    "keep_going": "¡Sigue así!",
+    "doing_great": "¡Lo estás haciendo genial!"
+  }
+}

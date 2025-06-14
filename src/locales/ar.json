@@ -1,0 +1,65 @@
+
+{
+  "language": {
+    "select": "اختر لغتك",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français",
+    "spanish": "Español",
+    "change": "تغيير اللغة"
+  },
+  "home": {
+    "title": "أكاديمية البيانو",
+    "subtitle": "تعلم البيانو خطوة بخطوة • من المبتدئ إلى الخبير",
+    "progress": "تقدمك",
+    "level": "المستوى",
+    "streak": "يوم متتالي",
+    "learn": "تعلم",
+    "practice": "تمرن",
+    "progress_section": "التقدم",
+    "lessons_subtitle": "دروس تدريجية من الأساسيات إلى المتقدم",
+    "practice_subtitle": "العب بحرية مع لوحة مفاتيح البيانو الافتراضية",
+    "progress_subtitle": "تتبع إنجازاتك ونموك",
+    "next_lesson": "التالي: الدرس",
+    "basic_chords": "الأوتار الأساسية",
+    "piano_keyboard": "لوحة مفاتيح البيانو",
+    "feedback_guidance": "مع التعليقات والإرشاد",
+    "badges_stats": "الشارات والإحصائيات",
+    "improving": "شاهد كيف تتحسن",
+    "lessons_done": "الدروس المكتملة",
+    "day_streak": "الأيام المتتالية",
+    "stars_earned": "النجوم المكتسبة",
+    "complete": "مكتمل",
+    "quote": "كل خبير كان مبتدئاً يوماً ما",
+    "practice_tip": "تمرن 10 دقائق يومياً للحفاظ على سلسلتك!"
+  },
+  "lessons": {
+    "title": "دروس البيانو",
+    "back": "العودة للأكاديمية",
+    "beginner": "مبتدئ",
+    "intermediate": "متوسط",
+    "advanced": "متقدم",
+    "start_lesson": "ابدأ الدرس",
+    "lesson_complete": "الدرس مكتمل!"
+  },
+  "practice": {
+    "title": "وضع التمرين",
+    "back": "العودة للأكاديمية",
+    "free_play": "لعب حر",
+    "guided_practice": "تمرين موجه",
+    "feedback_mode": "وضع التعليقات"
+  },
+  "progress": {
+    "title": "تقدمك",
+    "back": "العودة للأكاديمية",
+    "stars_earned": "النجوم المكتسبة",
+    "lessons_done": "الدروس المكتملة",
+    "day_streak": "الأيام المتتالية",
+    "progress_percent": "التقدم",
+    "this_week": "تمرين هذا الأسبوع",
+    "skill_development": "تطوير المهارات",
+    "achievements": "الإنجازات",
+    "keep_going": "استمر!",
+    "doing_great": "أنت تقوم بعمل رائع!"
+  }
+}
