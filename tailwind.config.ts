@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Music app specific colors
+				neon: {
+					blue: '#00D4FF',
+					purple: '#8B5CF6',
+					pink: '#F472B6',
+					green: '#10B981',
+					yellow: '#F59E0B',
 				}
 			},
 			borderRadius: {
@@ -70,25 +79,35 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'key-press': {
+					'0%': { transform: 'scale(1)', boxShadow: '0 0 0 rgba(0, 212, 255, 0)' },
+					'50%': { transform: 'scale(0.95)', boxShadow: '0 0 20px rgba(0, 212, 255, 0.8)' },
+					'100%': { transform: 'scale(1)', boxShadow: '0 0 0 rgba(0, 212, 255, 0)' }
+				},
+				'note-fall': {
+					'0%': { transform: 'translateY(-100vh)', opacity: '0' },
+					'10%': { opacity: '1' },
+					'90%': { opacity: '1' },
+					'100%': { transform: 'translateY(100vh)', opacity: '0' }
+				},
+				'glow-pulse': {
+					'0%, 100%': { boxShadow: '0 0 5px rgba(0, 212, 255, 0.5)' },
+					'50%': { boxShadow: '0 0 20px rgba(0, 212, 255, 1), 0 0 30px rgba(0, 212, 255, 0.5)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'key-press': 'key-press 0.2s ease-out',
+				'note-fall': 'note-fall 4s linear infinite',
+				'glow-pulse': 'glow-pulse 2s ease-in-out infinite'
 			}
 		}
 	},
