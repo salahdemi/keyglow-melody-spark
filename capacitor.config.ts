@@ -1,19 +1,17 @@
 
-import { CapacitorConfig } from '@capacitor/core';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'app.lovable.360dac4348994d48816d8828a3b17b8b',
-  appName: 'Magic Piano - Learn & Play',
+  appName: 'keyglow-melody-spark',
   webDir: 'dist',
   server: {
-    url: 'https://360dac43-4899-4d48-816d-8828a3b17b8b.lovableproject.com?forceHideBadge=true',
-    cleartext: true
+    androidScheme: 'https'
   },
   plugins: {
-    SplashScreen: {
-      launchShowDuration: 2000,
-      backgroundColor: '#1e293b',
-      showSpinner: false
+    AdMob: {
+      appId: 'ca-app-pub-3940256099942544~3347511713',
+      testingDevices: ['2077ef9a63d2b398840261c8221a0c9b']
     }
   }
 };

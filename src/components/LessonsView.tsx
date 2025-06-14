@@ -1,10 +1,11 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import LessonDetail from "./LessonDetail";
 import { ArrowLeft, Lock, CheckCircle, Play, Star } from "lucide-react";
+import NativeAd from "./NativeAd";
+import RewardedAdPrompt from "./RewardedAdPrompt";
 
 interface Lesson {
   id: number;
@@ -27,6 +28,11 @@ interface LessonsViewProps {
 const LessonsView = ({ onBack, userProgress, setUserProgress }: LessonsViewProps) => {
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
   const [currentLevel, setCurrentLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
+  const [showRewardedAd, setShowRewardedAd] = useState<{
+    show: boolean;
+    rewardType: 'premium_lesson' | 'extra_practice' | 'bonus_content';
+    lessonId?: number;
+  }>({ show: false, rewardType: 'premium_lesson' });
 
   const lessons: Lesson[] = [
     // Beginner Lessons
@@ -60,6 +66,28 @@ const LessonsView = ({ onBack, userProgress, setUserProgress }: LessonsViewProps
       case 'advanced': return 'neon-purple';
       default: return 'neon-blue';
     }
+  };
+
+  const handleLessonClick = (lesson: Lesson) => {
+    if (lesson.isLocked) {
+      // Show rewarded ad prompt for locked lessons
+      setShowRewardedAd({
+        show: true,
+        rewardType: 'premium_lesson',
+        lessonId: lesson.id
+      });
+      return;
+    }
+    setSelectedLesson(lesson);
+  };
+
+  const handleRewardEarned = () => {
+    if (showRewardedAd.lessonId) {
+      // Unlock the lesson
+      console.log(`Unlocked lesson ${showRewardedAd.lessonId}`);
+      // You would update the lesson state here
+    }
+    setShowRewardedAd({ show: false, rewardType: 'premium_lesson' });
   };
 
   if (selectedLesson) {
@@ -130,56 +158,62 @@ const LessonsView = ({ onBack, userProgress, setUserProgress }: LessonsViewProps
           </div>
         </Card>
 
-        {/* Lessons Grid */}
+        {/* Lessons Grid with Native Ads */}
         <div className="grid gap-4 md:grid-cols-2">
-          {currentLessons.map((lesson) => (
-            <Card 
-              key={lesson.id}
-              className={`glass-effect p-6 transition-all duration-300 cursor-pointer ${
-                lesson.isLocked 
-                  ? 'border-gray-600 opacity-60' 
-                  : lesson.isCompleted
-                    ? 'border-neon-green/50 hover:border-neon-green'
-                    : 'border-white/20 hover:border-neon-blue'
-              }`}
-              onClick={() => !lesson.isLocked && setSelectedLesson(lesson)}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  {lesson.isLocked ? (
-                    <Lock className="w-6 h-6 text-gray-500" />
-                  ) : lesson.isCompleted ? (
-                    <CheckCircle className="w-6 h-6 text-neon-green" />
-                  ) : (
-                    <Play className="w-6 h-6 text-neon-blue" />
+          {currentLessons.map((lesson, index) => (
+            <div key={lesson.id}>
+              <Card 
+                className={`glass-effect p-6 transition-all duration-300 cursor-pointer ${
+                  lesson.isLocked 
+                    ? 'border-gray-600 opacity-60' 
+                    : lesson.isCompleted
+                      ? 'border-neon-green/50 hover:border-neon-green'
+                      : 'border-white/20 hover:border-neon-blue'
+                }`}
+                onClick={() => handleLessonClick(lesson)}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    {lesson.isLocked ? (
+                      <Lock className="w-6 h-6 text-gray-500" />
+                    ) : lesson.isCompleted ? (
+                      <CheckCircle className="w-6 h-6 text-neon-green" />
+                    ) : (
+                      <Play className="w-6 h-6 text-neon-blue" />
+                    )}
+                    <div>
+                      <h3 className="font-bold text-white text-lg">{lesson.title}</h3>
+                      <p className="text-sm text-gray-400">{lesson.duration}</p>
+                    </div>
+                  </div>
+                  {lesson.isCompleted && (
+                    <div className="flex items-center gap-1">
+                      {[...Array(lesson.stars)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 text-neon-yellow fill-current" />
+                      ))}
+                    </div>
                   )}
-                  <div>
-                    <h3 className="font-bold text-white text-lg">{lesson.title}</h3>
-                    <p className="text-sm text-gray-400">{lesson.duration}</p>
-                  </div>
                 </div>
-                {lesson.isCompleted && (
-                  <div className="flex items-center gap-1">
-                    {[...Array(lesson.stars)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-neon-yellow fill-current" />
-                    ))}
-                  </div>
-                )}
-              </div>
+                
+                <p className="text-gray-300 mb-4">{lesson.description}</p>
+                
+                <div className="flex flex-wrap gap-2">
+                  {lesson.concepts.map((concept, index) => (
+                    <span 
+                      key={index}
+                      className="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300"
+                    >
+                      {concept}
+                    </span>
+                  ))}
+                </div>
+              </Card>
               
-              <p className="text-gray-300 mb-4">{lesson.description}</p>
-              
-              <div className="flex flex-wrap gap-2">
-                {lesson.concepts.map((concept, index) => (
-                  <span 
-                    key={index}
-                    className="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300"
-                  >
-                    {concept}
-                  </span>
-                ))}
-              </div>
-            </Card>
+              {/* Show native ad after every 2nd lesson */}
+              {(index + 1) % 2 === 0 && index < currentLessons.length - 1 && (
+                <NativeAd />
+              )}
+            </div>
           ))}
         </div>
 
@@ -190,6 +224,15 @@ const LessonsView = ({ onBack, userProgress, setUserProgress }: LessonsViewProps
           </p>
         </Card>
       </div>
+
+      {/* Rewarded Ad Prompt */}
+      {showRewardedAd.show && (
+        <RewardedAdPrompt
+          rewardType={showRewardedAd.rewardType}
+          onRewardEarned={handleRewardEarned}
+          onCancel={() => setShowRewardedAd({ show: false, rewardType: 'premium_lesson' })}
+        />
+      )}
     </div>
   );
 };
