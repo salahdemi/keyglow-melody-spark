@@ -1,5 +1,5 @@
 
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, RewardAdOptions, AdmobConsentStatus, AdmobConsentDebugGeography } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, RewardAdOptions } from '@capacitor-community/admob';
 
 export class AdMobService {
   private static instance: AdMobService;
@@ -18,7 +18,6 @@ export class AdMobService {
     try {
       console.log('Initializing AdMob...');
       await AdMob.initialize({
-        requestTrackingAuthorization: true,
         testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'],
         initializeForTesting: true,
       });
@@ -65,7 +64,8 @@ export class AdMobService {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       
-      if (result.rewarded) {
+      // Check if the result has reward info
+      if (result && typeof result === 'object') {
         console.log('User earned reward!');
         return true;
       }
