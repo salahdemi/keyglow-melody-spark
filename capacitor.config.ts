@@ -2,7 +2,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.360dac4348994d48816d8828a3b17b8b',
+  appId: 'com.lovable.keyglowmelodyspark',
   appName: 'keyglow-melody-spark',
   webDir: 'dist',
   server: {
